@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INFO1601 Lab 6 – Browser JavaScript</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <style>
+    body { padding: 20px; font-family: Arial, sans-serif; }
+    button { margin: 10px 0; }
+    #dom-result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h1>Lab 6 – Browser JavaScript</h1>
+
+  <h2>Dialogs</h2>
+  <button onclick="alertFun()" class="btn">Alert</button>
+  <button onclick="confirmFun()" class="btn">Confirm</button>
+  <button onclick="promptFun()" class="btn">Prompt</button>
+
+  <h2>DOM Example</h2>
+  <span id="dom-result">Original Span Text</span>
+  <button onclick="changeDOM()" class="btn">Change DOM</button>
+
+  <h2>Browser Object Model Logs</h2>
+  <pre id="bom-log"></pre>
+
+  <h2>Redirect Example</h2>
+  <button onclick="redirect('https://weblabs.web.app/1601l6/#0')" class="btn green">Go to Lab URL</button>
+
+  <script>
+    function alertFun() {
+      alert("Hello!");
+    }
+
+    function confirmFun() {
+      let didConfirm = confirm("Are you sure about that?");
+      if (didConfirm) {
+        alert("You confirmed :)");
+      } else {
+        alert("You did not confirm :(");
+      }
+    }
+
+    function promptFun() {
+      let val = prompt("What is your name?");
+      alert(`You've entered: ${val}`);
+    }
+
+    function changeDOM() {
+      const domResult = document.querySelector("#dom-result");
+      domResult.innerHTML = "DOM has been updated!";
+      domResult.style.color = "blue";
+      domResult.style.fontSize = "20px";
+    }
+
+    function logBOM() {
+      const logs = [];
+      logs.push(`Cookies Enabled: ${navigator.cookieEnabled}`);
+      logs.push(`Online Status: ${navigator.onLine}`);
+      logs.push(`App Version: ${navigator.appVersion}`);
+      logs.push(`User Agent: ${navigator.userAgent}`);
+      logs.push(`Platform: ${navigator.platform}`);
+      logs.push(`Current URL: ${window.location.href}`);
+      logs.push(`Protocol: ${window.location.protocol}`);
+      logs.push(`Hostname: ${window.location.hostname}`);
+      document.getElementById("bom-log").textContent = logs.join("\n");
+      console.log(logs.join("\n"));
+    }
+
+    function redirect(url) {
+      window.location.assign(url);
+    }
+
+    window.onload = logBOM;
+  </script>
+
+</body>
+</html>
